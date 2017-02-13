@@ -7,22 +7,24 @@ import java.util.Scanner;
  * This class provides simple interactive dialog for inserting
  * and removing money to/from the purse, and displaying the
  * balance.
+ * 
+ * @author Dacharat Pankong
  */
 public class ConsoleDialog {
 	// default currency for this dialog
 	public static final String CURRENCY = "Baht";
     // use a single java.util.Scanner object for reading all input
     private static Scanner console = new Scanner( System.in );
-    
-	//TODO How does this object get a Purse?  DO NOT WRITE "new Purse(xx)".
+    	
     private Purse purse;
     
     /** 
      * Initialize a new Purse dialog.
+     * 
      * @param purse is the Purse to interact with.
      */
-    public ConsoleDialog( ) {
-
+    public ConsoleDialog(Purse purse) {
+    	this.purse = purse;
     }
     
     /** run the user interface */
@@ -36,11 +38,16 @@ public class ConsoleDialog {
               "\nPlease enter d (deposit), w (withdraw), ? (inquiry), or q (quit): ");
             choice = console.nextLine().trim().toLowerCase();
  
-            if ( choice.equals("d") ) depositDialog();
-            else if ( choice.equals("w") ) withdrawDialog();
-            else if ( choice.equals("?") ) System.out.println( purse.toString() );
-            else if ( choice.equals("q") ) break; // leave the loop
-            else System.out.println( "\""+choice+"\" is not a valid choice.");
+            if ( choice.equals("d") ) 
+            	depositDialog();
+            else if ( choice.equals("w") ) 
+            	withdrawDialog();
+            else if ( choice.equals("?") ) 
+            	System.out.println( purse.toString() );
+            else if ( choice.equals("q") ) 
+            	break; // leave the loop
+            else 
+            	System.out.println( "\""+choice+"\" is not a valid choice.");
         }
         // confirm that we are quitting
         System.out.println("Goodbye. The purse still has "+purse.getBalance()+" "+CURRENCY);
