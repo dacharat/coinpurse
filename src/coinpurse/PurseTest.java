@@ -2,6 +2,7 @@ package coinpurse;
  
 
 import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,8 @@ import org.junit.Test;
  * This is a JUnit 4 test.  
  * To run these tests, right click on this file (in Navigator pane)
  * and choose Run As -> JUnit test
- * @author  Resident Evil
+ * 
+ * @author  Dacharat Pankong
  * @version 2017.02.01
  */
 public class PurseTest {
@@ -150,13 +152,17 @@ public class PurseTest {
 	
 	/**
 	 * Sum the value of some coins.
+	 * 
 	 * @param coins array of coins
 	 * @return sum of values of the coins
 	 */
 	private double sumValue(Coin [] coins)  {
-		if (coins == null) return 0;
+		if (coins == null) 
+			return 0;
 		double sum = 0;
-		for(Coin c: coins) if (c != null) sum += c.getValue();
+		for(Coin c: coins) 
+			if (c != null) 
+				sum += c.getValue();
 		return sum;
 	}
 }
