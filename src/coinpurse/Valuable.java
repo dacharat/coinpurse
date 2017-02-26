@@ -10,11 +10,9 @@ import java.util.Comparator;
  * @author Dacharat Pankong
  *
  */
-public interface Valuable {
+public interface Valuable extends Comparable<Valuable>{
 	public double getValue();
 	
 	public String getCurrency();
-	
-	public boolean equals(Object arg);
 	
 }

@@ -18,6 +18,8 @@ public class ConsoleDialog {
     	
     private Purse purse;
     
+    private MoneyFactory factory;
+    
     /** 
      * Initialize a new Purse dialog.
      * 
@@ -25,6 +27,7 @@ public class ConsoleDialog {
      */
     public ConsoleDialog(Purse purse) {
     	this.purse = purse;
+    	this.factory = MoneyFactory.getInstance();
     }
     
     /** run the user interface */
@@ -61,22 +64,23 @@ public class ConsoleDialog {
         String inline = console.nextLine();
         // parse input line into numbers
         Scanner scanline = new Scanner(inline);
-        while( scanline.hasNextDouble() ) {
-            double value = scanline.nextDouble();
-            if(value >= 20){
-            	BankNote bank = new BankNote(value);
-                System.out.printf("Deposit %s... ", bank.toString() );
-                boolean ok = purse.insert(bank);
-                System.out.println( (ok? "ok" : "FAILED") );
-            } else {
-            	Coin coin = new Coin(value);
-            	System.out.printf("Deposit %s... ", coin.toString() );
-            	boolean ok = purse.insert(coin);
-            	System.out.println( (ok? "ok" : "FAILED") );
-            }
-        }
-        if ( scanline.hasNext() )
-            System.out.println("Invalid input: "+scanline.next() );
+        while (scanline.hasNextDouble()) {
+			String value = scanline.next();
+			Valuable money = null;
+			try {
+				money = factory.createMoney(value);
+			} catch (Exception e) {
+				System.out.println("Sorry, " + value + " is not valid amount.");
+				continue;
+			}
+
+			System.out.printf("Deposit %s... ", money.toString());
+			boolean ok = purse.insert(money);
+			System.out.println((ok ? "ok" : "FAILED"));
+		}
+		if (scanline.hasNext())
+			System.out.println("Invalid input: " + scanline.next());
+		scanline.close();
     }
     
     /** Ask how much money (Baht) to withdraw and then do it.

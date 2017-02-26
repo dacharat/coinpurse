@@ -24,8 +24,6 @@ public class Purse {
      */
     private final int capacity;
     
-    private double balance = 0;
-    
     /** 
      *  Create a purse with a specified capacity.
      *  
@@ -93,27 +91,11 @@ public class Purse {
      * @return true if coin inserted, false if can't insert
      */
     public boolean insert(Valuable valuable) {
-		if (valuable.getValue() == 0) {
+		if(valuable.getValue() <= 0 || isFull()){
 			return false;
 		}
-		if (!isFull()) {
-			money.add(valuable);
-			balance += money.get(money.size() - 1).getValue();
-			Collections.sort(this.money, new Comparator<Valuable>() {
-				@Override
-				public int compare(Valuable o1, Valuable o2) {
-					if (o1.getValue() < o2.getValue()) {
-						return 1;
-					}
-					if (o1.getValue() > o2.getValue()) {
-						return -1;
-					}
-					return 0;
-				}
-			});
-			return true;
-		}
-		return false;
+		money.add(valuable);
+		return true;
 	}
     
     /**  
